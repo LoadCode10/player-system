@@ -6,7 +6,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 ENV_FILE_PATH = BASE_DIR / ".env"
 
 if not ENV_FILE_PATH.exists():
-    print(f"\n❌ ERREUR: Fichier .env introuvable à l'emplacement : {ENV_FILE_PATH}\n")
+    print(f"\n ERREUR: Fichier .env introuvable à l'emplacement : {ENV_FILE_PATH}\n")
 
 class Settings(BaseSettings):
     DATABASE_URL : str = Field(
