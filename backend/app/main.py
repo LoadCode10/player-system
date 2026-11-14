@@ -5,7 +5,7 @@ from app.core.config import settings
 from app.db.session import get_db
 
 app = FastAPI(title="The System API")
-#print(f"Connecting to:{settings.DATABASE_URL}")
+
 
 @app.get("/health")
 def health():
