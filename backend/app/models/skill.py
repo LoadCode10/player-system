@@ -1,9 +1,20 @@
+import enum
 import uuid
-from sqlalchemy import String, DateTime, Integer, Boolean, ForeignKey, Table, Column, UniqueConstraint, func, Date,Text
+from sqlalchemy import String, DateTime, Integer, Boolean, ForeignKey, Table, Column, UniqueConstraint, func, Date,Text, Enum as SQLEnum
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from datetime import datetime
 from app.db.base import Base
 
+# class SkillCategory(str, enum.Enum):
+#     FUNDAMENTALS = "fundamentals"
+#     BACKEND = "backend"
+#     FRONTEND = "frontend"
+#     DATABASE = "database"
+#     AI_ENGINEERING = "ai_engineering"
+#     DEVOPS = "devops"
+#     CYBERSECURITY = "cybersecurity"
+#     NETWORKING = "networking"
+#     MACHINE_LEARNING = "machine_learning"
 
 class Skill(Base):
     __tablename__ = "skills"
