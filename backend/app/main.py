@@ -83,6 +83,27 @@ def create_skill(
 
     return new_skill
 
+@app.patch("/skills/update_skill/{skill_id}",
+           response_model=SkillRead)
+def update_skill(
+    skill_in : SkillUpdate,
+    skill_id : str,
+    db: Session = Depends(get_db)
+):
+    updated_skill = get_skill(skill_id=skill_id,db=db)
+    update_data = skill_in.model_dump(exclude_unset=True)
+
+    for key, value in update_data.items:
+        setattr(updated_skill, key, value)
+
+    db.commit()
+    db.refresh(updated_skill)
+    return updated_skill
+
+
+
+
+
     
 @app.get("/")
 def root():
