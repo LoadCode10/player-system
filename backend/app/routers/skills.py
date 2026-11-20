@@ -46,6 +46,3 @@ def delete_skill_endpoint(
   db: Session =Depends(get_db)
 ):
   delete_skill(skill_id=skill_id, db=db)
-  return {
-    "message": "skill deleted successfully!"
-  }

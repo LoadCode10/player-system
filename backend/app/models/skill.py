@@ -1,6 +1,6 @@
 import enum
 import uuid
-from sqlalchemy import String, DateTime, Integer, Boolean, ForeignKey, Table, Column, UniqueConstraint, func, Date,Text, Enum as SQLEnum
+from sqlalchemy import String, DateTime, Integer, Boolean, ForeignKey, Table, Column, UniqueConstraint,Index, func, Date,Text, Enum as SQLEnum
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from datetime import datetime
 from app.db.base import Base
@@ -44,5 +44,9 @@ class Skill(Base):
         DateTime(timezone=True),
         server_default=func.now(),
         nullable= False
+    )
+
+    __table_args__ = (
+        Index("uq_skills_name_lower",func.lower(name), unique=True),
     )
 
