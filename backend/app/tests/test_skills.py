@@ -79,7 +79,7 @@ def test_delete_skill_returns_204_then_get_returns_404(client):
         BASE_URL,
         json={"name": "Redis", "category": "database"},
     )
-    skill_id = create_resp.json()["id_skill"]
+    skill_id = create_resp.json()["id_skill*"]
 
     delete_resp = client.delete(f"{BASE_URL}/{skill_id}")
     assert delete_resp.status_code == 204
