@@ -4,6 +4,10 @@ from sqlalchemy import (String, DateTime, Integer, Boolean, ForeignKey, Table, C
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from app.db.base import Base
 from app.models.enums import Rank, QuestStatus
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from app.models.skill import Skill
 
 quest_skill = Table(
     "quest_skill",
@@ -12,8 +16,10 @@ quest_skill = Table(
     Column("id_skill", ForeignKey("skills.id_skill", ondelete="RESTRICT"), primary_key=True),
 )
 
+
 def _values(enum_cls):
     return [e.value for e in enum_cls]
+
 
 class Quest(Base):
     __tablename__ = "quests"

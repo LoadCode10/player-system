@@ -1,10 +1,13 @@
+from fastapi import HTTPException, status
+
 from sqlalchemy.orm import Session
-from sqlalchemy import func
+from sqlalchemy import func, select
 from sqlalchemy.exc import IntegrityError
 
 from app.core.exceptions import SkillNotFound, SkillAlreadyExists
 from app.models.skill import Skill
 from app.schemas.skill import SkillCreate, SkillUpdate
+from app.models.quest import quest_skill
 
 
 UNIQUE_NAME_INDEX = "uq_skills_name_lower"
@@ -95,6 +98,18 @@ def delete_skill(
     db: Session
 ):
     deleted_skill = get_skill(skill_id=skill_id, db=db)
+
+    quest_count = db.scalar(
+        select(func.count())
+        .select_from(quest_skill)
+        .where(quest_skill.c.id_skill == skill_id)
+    )
+
+    if quest_count:
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT,
+            detail=f"Skill is used by {quest_count} quest(s) and cannot be deleted.",
+        )
     db.delete(deleted_skill)
     db.commit()
     
